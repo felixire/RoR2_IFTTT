@@ -16,25 +16,29 @@ function getApp(appName){
     return app;
 }
 
-function getSavedStuff(){
-    fs.exists(filepath, (exists) => {
+async function getSavedStuff(){
+    fs.exists(filepath, async(exists) => {
         if(!exists)
-            saveStuff();
+            await saveStuff();
     })
 
-    fs.readFile(filepath, (err, data) => {
+    fs.readFile(filepath, async(err, data) => {
         if(err) throw err;
 
         if(data != '')
             _Stuff = JSON.parse(data);
         else
-            saveStuff();
+            await saveStuff();
     })
 }
 
 function saveStuff(){
-    fs.writeFile(filepath, JSON.stringify(_Stuff), (err) => {
-        if(err) throw err;
+    return new Promise((res, rej) => {
+        fs.writeFileSync(filepath, JSON.stringify(_Stuff), (err) => {
+            if(err) throw err;
+
+            res();
+        })
     })
 }
 
