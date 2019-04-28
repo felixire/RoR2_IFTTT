@@ -1,0 +1,22 @@
+{
+  "name": "ror2_ifttt_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felixire/RoR2_IFTTT.git"
+  },
+  "author": "felixire",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/felixire/RoR2_IFTTT/issues"
+  },
+  "homepage": "https://github.com/felixire/RoR2_IFTTT#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
