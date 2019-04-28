@@ -4,6 +4,7 @@ const filepath = "./Save.json";
 //Returns empty string when not exists
 function getApp(appName){
 
+    return '';
 }
 
 function getSavedStuff(){
