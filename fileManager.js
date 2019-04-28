@@ -17,10 +17,18 @@ function getApp(appName){
 }
 
 function getSavedStuff(){
+    fs.exists(filepath, (exists) => {
+        if(!exists)
+            saveStuff();
+    })
+
     fs.readFile(filepath, (err, data) => {
         if(err) throw err;
 
-        _Stuff = JSON.parse(data);
+        if(data != '')
+            _Stuff = JSON.parse(data);
+        else
+            saveStuff();
     })
 }
 
