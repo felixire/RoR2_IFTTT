@@ -30,11 +30,12 @@ async function getSavedStuff(){
 
     let rawData = fs.readFileSync(filepath);
     _Stuff = JSON.parse(rawData);
+    console.log("Stuff:",_Stuff);
 }
 
 function saveStuff(){
     return new Promise((res, rej) => {
-        fs.writeFileSync(filepath, JSON.stringify(_Stuff), (err) => {
+        fs.writeFile(filepath, JSON.stringify(_Stuff), (err) => {
             if(err) throw err;
 
             res();
