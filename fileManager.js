@@ -14,6 +14,10 @@ function getApp(appName){
     if(app === undefined || app === null)
         return '';
 
+    
+    //Delete the data
+    _Stuff[appName] = {};
+
     return app;
 }
 
