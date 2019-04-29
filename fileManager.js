@@ -47,7 +47,7 @@ function saveStuff(){
 async function setApp(appName, value){
     let unix = new Date().getTime();
 
-    if(getApp(appName) != ''){
+    if(!_Stuff[appName]){
         //_Stuff[appName][data][unix] = value;
         _Stuff[appName][unix] = value;
         await saveStuff();
