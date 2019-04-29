@@ -10,6 +10,7 @@ let _Stuff = {};
 //Returns empty string when not exists
 function getApp(appName){
     let app = _Stuff[appName];
+    console.log(app);
     if(app === undefined || app === null)
         return '';
 
@@ -42,11 +43,13 @@ function saveStuff(){
     })
 }
 
-function setApp(appName, value){
+async function setApp(appName, value){
     let unix = new Date().getTime();
 
     if(getApp(appName) != ''){
-        _Stuff[appName][data][unix] = value;
+        //_Stuff[appName][data][unix] = value;
+        _Stuff[appName][unix] = value;
+        await saveStuff();
     }
 
 }
