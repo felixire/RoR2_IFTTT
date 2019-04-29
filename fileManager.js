@@ -8,7 +8,7 @@ let _Stuff = {};
 })()
 
 //Returns empty string when not exists
-function getApp(appName){
+async function getApp(appName){
     let app = _Stuff[appName];
     console.log(_Stuff);
     if(app === undefined || app === null)
@@ -17,6 +17,7 @@ function getApp(appName){
     
     //Delete the data
     _Stuff[appName] = {};
+    await saveStuff();
 
     return app;
 }
@@ -28,7 +29,7 @@ async function getSavedStuff(){
             await saveStuff();
     })
 
-    let rawData = fs.readFileSync(filepath);
+    let rawData = await fs.readFileSync(filepath);
     _Stuff = JSON.parse(rawData);
     console.log("Stuff:",_Stuff);
 }
