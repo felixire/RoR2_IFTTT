@@ -50,6 +50,10 @@ async function setApp(appName, value){
         //_Stuff[appName][data][unix] = value;
         _Stuff[appName][unix] = value;
         await saveStuff();
+    }else{
+        _Stuff[appName] = {};
+        _Stuff[appName][unix] = value;
+        await saveStuff();
     }
 
 }
