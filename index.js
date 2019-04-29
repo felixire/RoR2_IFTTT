@@ -9,8 +9,10 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     let appStuff = fileManager.getApp(req.query.Name);
-    if(appStuff === '')
+    if(appStuff === ''){
         res.send('Not Found!');
+        return;
+    }
 
     res.send(appStuff);
 })
@@ -19,6 +21,13 @@ app.post('/', (req, res) => {
     console.log("-----");
     console.log(req.body);
     console.log("-----");
+    if(!req.body.Name || !req.body.Info){
+        res.send("Please specify a Name and Info");
+        return;
+    }
+
+    fileManager.setApp(req.body.Name, req.body.Info);
+
     res.send("Okay!");
 })
 

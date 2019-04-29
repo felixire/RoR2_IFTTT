@@ -42,11 +42,13 @@ function saveStuff(){
     })
 }
 
-function setApp(appName, value){
+async function setApp(appName, value){
     let unix = new Date().getTime();
 
     if(getApp(appName) != ''){
-        _Stuff[appName][data][unix] = value;
+        //_Stuff[appName][data][unix] = value;
+        _Stuff[appName][unix] = value;
+        await saveStuff();
     }
 
 }
