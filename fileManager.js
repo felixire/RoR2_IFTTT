@@ -23,6 +23,7 @@ function getApp(appName){
 
 async function getSavedStuff(){
     fs.exists(filepath, async(exists) => {
+        console.log("Exists?", exists);
         if(!exists)
             await saveStuff();
     })
@@ -30,6 +31,7 @@ async function getSavedStuff(){
     fs.readFile(filepath, async(err, data) => {
         if(err) throw err;
 
+        console.log("data?", data);
         if(data != '')
             _Stuff = JSON.parse(data);
         else
