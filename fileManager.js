@@ -3,35 +3,42 @@ const filepath = "./Save.json";
 
 let _Stuff = {};
 
-(() => {
-    _Stuff = getSavedStuff();
+(async() => {
+    await getSavedStuff();
 })()
 
 //Returns empty string when not exists
 async function getApp(appName){
-    let app = _Stuff[appName];
-    console.log(_Stuff);
-    if(app === undefined || app === null)
-        return '';
+    return new Promise(async(res, rej) => {
+        let app = _Stuff[appName];
 
+        console.log(_Stuff);
+        if(!app || app == undefined || app == null){
+            res('');
+            return;
+        }
+
+        //Delete the data
+        _Stuff[appName] = {};
+        await saveStuff();
     
-    //Delete the data
-    _Stuff[appName] = {};
-    await saveStuff();
-
-    return app;
+        res(app);
+    })
 }
 
 async function getSavedStuff(){
-    fs.exists(filepath, async(exists) => {
-        console.log("Exists?", exists);
-        if(!exists)
-            await saveStuff();
+    return new Promise(async(res, rej) => {
+        fs.exists(filepath, async(exists) => {
+            console.log("Exists?", exists);
+            if(!exists)
+                await saveStuff();
+        })
+    
+        let rawData = fs.readFileSync(filepath);
+        _Stuff = JSON.parse(rawData);
+        console.log("Stuff:", _Stuff);
+        res();
     })
-
-    let rawData = await fs.readFileSync(filepath);
-    _Stuff = JSON.parse(rawData);
-    console.log("Stuff:",_Stuff);
 }
 
 function saveStuff(){
@@ -45,17 +52,21 @@ function saveStuff(){
 }
 
 async function setApp(appName, value){
-    let unix = new Date().getTime();
-
-    if(!_Stuff[appName]){
-        //_Stuff[appName][data][unix] = value;
-        _Stuff[appName][unix] = value;
-        await saveStuff();
-    }else{
-        _Stuff[appName] = {};
-        _Stuff[appName][unix] = value;
-        await saveStuff();
-    }
+    return new Promise(async(res, rej) => {
+        let unix = new Date().getTime();
+    
+        if(_Stuff[appName] != undefined || _Stuff[appName] != null){
+            //_Stuff[appName][data][unix] = value;
+            _Stuff[appName][unix] = value;
+            await saveStuff();
+            res();
+        }else{
+            _Stuff[appName] = {};
+            _Stuff[appName][unix] = value;
+            await saveStuff();
+            res();
+        }
+    })
 
 }
 

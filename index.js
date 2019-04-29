@@ -7,8 +7,8 @@ const port = process.env.PORT || 8080;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-    let appStuff = fileManager.getApp(req.query.Name);
+app.get('/', async(req, res) => {
+    let appStuff = await fileManager.getApp(req.query.Name);
     if(appStuff === ''){
         res.send('Not Found!');
         return;
