@@ -28,15 +28,8 @@ async function getSavedStuff(){
             await saveStuff();
     })
 
-    fs.readFile(filepath, async(err, data) => {
-        if(err) throw err;
-
-        console.log("data?", data);
-        if(data != '')
-            _Stuff = JSON.parse(data);
-        else
-            await saveStuff();
-    })
+    let rawData = fs.readFileSync(filepath);
+    _Stuff = JSON.parse(rawData);
 }
 
 function saveStuff(){
