@@ -10,7 +10,7 @@ let _Stuff = {};
 //Returns empty string when not exists
 function getApp(appName){
     let app = _Stuff[appName];
-    console.log(app);
+    console.log(_Stuff);
     if(app === undefined || app === null)
         return '';
 
